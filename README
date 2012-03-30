@@ -1,1 +1,43 @@
-This tool is designed to be used in conjunction with Jordon Mears' "Fusion Tables to JSON" app, whose source code is available on github here: https://github.com/jordoncm/ft2json. The app engine version can be accessed here: http://ft2json.appspot.com.
+Google Fusion Tables Map Manager serves two major functions:
+
+1. Additional functionality the Map Manager provides for Google Fusion Tables maps:
+*It provides a template fileset for layering the data from between 1 and 5 Google Fusion Tables maps on a single, customizable Google Map.
+*It provides custom CSS for styling the layout of the map's metadata, such as a headline, deck text, data source and key image. 
+*It provides some custom control for the behavior of the map, including which included Fusion Tables layers should have their infowindows enabled, as well as the default center coordinates and initial, minimum and maximum zoom levels allowed on the map.
+
+2.Data management for Google Fusion Tables maps through the Map Manager:
+*As organizations generate Google Fusion Tables maps, it can be difficult to keep track of which maps have a live version published somewhere on the web. 
+*Conversely, even for the owning organization, it can be cumbersome to determine which Google Fusion Table drives a particular published map view.
+*Finally, the automatically generated iframe code for these maps does not include much of the relevant metadata required for publishing, such as the hed, dek, key and source.
+
+The Map Manager addresses these issues by treating a specific Google Fusion Table like an index table of all maps for the owning organization. By assigning a unique ID to each
+compiled map instance and filling in the necessary metadata (including source Fusion Tables &c), the Map Manager code will load and display the appropriate contextual
+information for each map along with the map data itself. As noted above, the Map Manager also implements some additional functionality that cannot be accessed through directly
+embedded Google Fusion Tables Maps instances, such as restricting the zoom levels and layering multiple data sources into a single map.
+
+Dependencies and requirements:
+
+This tool relies on Jordon Mears' "Fusion Tables to JSON" app, whose source code is available on github here: 
+https://github.com/jordoncm/ft2json in api/ft2json.js. You will must place a copy of this file in the same directory as those here for the system to work properly. 
+I also recommend you review the app engine version can be here: http://ft2json.appspot.com. 
+Many thanks to Jordon for making his code public.
+
+As with all Fusion Tables maps, your master table and any source tables must be shared as at least Unlisted, if not Public, or queries for data will fail. 
+
+For an example of this fileset in action, visit:
+
+http://cuj.tw/H7rO93
+
+To view the "master" table driving this example:
+
+http://cuj.tw/Hs7GSW
+
+Refer to the notes on individual table columns for more information about how to format the relevant input. Note that master table column names and data types must match those found in this sample.
+
+***Note***
+This fileset falls under the terms of use for the Google Maps API, NOT strictly under those defined for Google Fusion Tables.
+The Google Maps API is leveraged to compose multiple Fusion Tables map layers and provide some of the custom functionality, as well as support for custom styling of the underlying map.
+As such, these maps are subject to the recently revised Google Maps API usage limits, outlined here:
+https://developers.google.com/maps/faq#usagelimits
+Depending on traffic to the maps and whether or not custom styling has been applied to the underlying map layer, some organizations may incur additional costs through the use of these files.
+
