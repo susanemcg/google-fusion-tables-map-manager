@@ -7,7 +7,8 @@
 var tableIDs;
 var mapMeta;
 var tableLayers = [];
-
+//update the below map title to reflect your own content
+var mapTitle = "Fusion Layers Map";
 
 /**
  * Generate your own custom map styles by using the wizard located here: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html. Be aware, this JSON will *not* validate properly with the likes of JSONLint
@@ -17,26 +18,27 @@ var customMapStyle = [ { featureType: "transit", stylers: [ { hue: "#666666" }, 
 function initialize(){
 var mapID = getParameterByName('mapID');
 //Step 1: Get the meta data associated with this map: hed, dek, date &c.
-//Replace the below with either the numeric or encrypted table ID of your metadata Fusion Table
- ft2json.query('SELECT * FROM 1716350 WHERE MapID='+mapID, parseMapMeta);	
-	}
+//Replace the below with encrypted table ID of your metadata Fusion Table; also replace the key value with your own API key. Instructions on activating and locating the key can be found here: http://bit.ly/QiMcIF
+var theQuery = "https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1dOv3xg7uS4hYZ54zu5kqOtfAQQxUJJrr92Eav5Y WHERE MapID="+mapID+"&key=AIzaSyDV1Plcrwo3Lu-MDUJGgWZKWYWnziHVuAs";
+$.get(theQuery, parseMapMeta);
+}
 
 	
 function parseMapMeta(theData){
 	//the default data format returned is text, including the column headers. Since we know what these are, we'll go straight for the data itself.
-	mapMeta = theData.data[0];
-	tableIDs = (mapMeta.FusionTableIDs).split(",");
+	mapMeta = theData.rows[0];
+	tableIDs = (mapMeta[6]).split(",");
 
 	//Write the metadata straightoff
-	$('#mapHed').html(mapMeta.Hed);
-	$('#mapDek').html(mapMeta.Dek);
-	$('#mapDate').html("Published: "+mapMeta.CreatedDate);
-	$('#mapSource').html("Source: "+mapMeta.Source);
+	$('#mapHed').html(mapMeta[1]);
+	$('#mapDek').html(mapMeta[2]);
+	$('#mapDate').html("Published: "+mapMeta[3]);
+	$('#mapSource').html("Source: "+mapMeta[9]);
 	
 	//adjust the width and height of the map container based on what's in the metadata table
-	$('#map_canvas').css({'width':mapMeta.Width+'px', 'height':mapMeta.Height+'px'});
-	$('#mapContainer').css({'width':mapMeta.Width+'px'});
-	$('#mapKey').html('<img src="'+mapMeta.KeyURL+'" />');
+	$('#map_canvas').css({'width':mapMeta[4]+'px', 'height':mapMeta[5]+'px'});
+	$('#mapContainer').css({'width':mapMeta[4]+'px'});
+	$('#mapKey').html('<img src="'+mapMeta[11]+'" />');
 	
 	initializeMap();
 	
@@ -44,9 +46,9 @@ function parseMapMeta(theData){
 	
   function initializeMap() {
   	//parse & intitialize the basic map features - center + initial, min, max zoom
-	var centerArray = (mapMeta.Center).split(",");
+	var centerArray = (mapMeta[7]).split(",");
     var latlng = new google.maps.LatLng(Number(centerArray[0]),Number(centerArray[1]));
-	var zoomArray = (mapMeta.Zoom).split(",");
+	var zoomArray = (mapMeta[8]).split(",");
     var myOptions = {
       zoom: Number(zoomArray[0]),
       center: latlng,
@@ -61,7 +63,7 @@ function parseMapMeta(theData){
 	//initialize the map
     var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
     //parse the info window layers specified in the metadata table
-	var infoWindowsLayers = (mapMeta.InfoWindowsVisible).split(",");
+	var infoWindowsLayers = (mapMeta[10]).split(",");
 	
 	//suppress info windows for each Fusion Table layer as you add it, unless its table ID is found in the metadata table
 	for (var i=0; i<tableIDs.length; i++){	

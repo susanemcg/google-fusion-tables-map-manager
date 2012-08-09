@@ -17,10 +17,10 @@ embedded Google Fusion Tables Maps instances, such as restricting the zoom level
 
 Dependencies and requirements:
 
-This tool relies on Jordon Mears' "Fusion Tables to JSON" app, whose source code is available on github here: 
-https://github.com/jordoncm/ft2json in api/ft2json.js. You will must place a copy of this file in the same directory as those here for the system to work properly. 
-I also recommend you review the app engine version can be here: http://ft2json.appspot.com. 
-Many thanks to Jordon for making his code public.
+jQuery, Fusion Tables API.
+
+Early versions made use of Jordon Mears' great "Fusion Tables to JSON" app, which can be found on github here: https://github.com/jordoncm/ft2json in api/ft2json.js and on AppEngine here: http://ft2json.appspot.com.  
+Many thanks to Jordon for making his code public while this tool was in development.
 
 As with all Fusion Tables maps, your master table and any source tables must be shared as at least Unlisted, if not Public, or queries for data will fail. 
 
