@@ -68,7 +68,7 @@ function parseMapMeta(theData){
 	//suppress info windows for each Fusion Table layer as you add it, unless its table ID is found in the metadata table
 	for (var i=0; i<tableIDs.length; i++){	
 	var aTableLayer = new google.maps.FusionTablesLayer(tableIDs[i],{suppressInfoWindows:true});
-	if((mapMeta.InfoWindowsVisible).indexOf(tableIDs[i]) != -1){
+	if((mapMeta[10]).indexOf(tableIDs[i]) != -1){
 		aTableLayer.suppressInfoWindows = false;
 		}
 	//add each layer to the layers array (this will be useful in further iterations)
